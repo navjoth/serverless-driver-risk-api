@@ -8,8 +8,5 @@ venv/
 .env
 .env.*
 
-# macOS
-.DS_Store
-
-# VSCode (if you use it)
+# VSCode (optional, if you use it)
 .vscode/
