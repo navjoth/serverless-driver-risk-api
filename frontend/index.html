@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Risk Prediction</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    input { margin: 5px 0; padding: 8px; width: 100%; }
+    button { padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    .result { margin-top: 20px; font-weight: bold; }
+    .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Driver Risk Prediction</h2>
+    <form id="predictForm">
+      <label>Average Speed</label>
+      <input type="number" step="0.1" name="average_speed" required>
+
+      <label>Brake Events</label>
+      <input type="number" step="1" name="brake_events" required>
+
+      <label>Acceleration Events</label>
+      <input type="number" step="0.1" name="acceleration_events" required>
+
+      <label>Night Trip (0 or 1)</label>
+      <input type="number" name="night_trip" required>
+
+      <label>Trip Duration (min)</label>
+      <input type="number" step="0.1" name="trip_duration_min" required>
+
+      <label>Distance (km)</label>
+      <input type="number" step="0.1" name="distance_km" required>
+
+      <button type="submit">Predict Risk</button>
+    </form>
+
+    <div class="result" id="resultBox"></div>
+  </div>
+
+  <script>
+    document.getElementById('predictForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = parseFloat(value); });
+
+    try {
+      const res = await fetch("https://zceltkplwh.execute-api.ap-south-1.amazonaws.com/dev/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();  // No need to parse again
+
+      document.getElementById("resultBox").innerText =
+        `Risk: ${result.risk_category} | Score: ${result.score} | Cost: $${result.estimated_cost_usd}`;
+    } catch (err) {
+      document.getElementById("resultBox").innerText = "Error: " + err.message;
+    }
+  });
+</script>
+</body>
+</html>
