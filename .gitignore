@@ -6,6 +6,10 @@ __pycache__/
 # Environment
 venv/
 .env
+.env.*
 
-# OS
+# macOS
 .DS_Store
+
+# VSCode (if you use it)
+.vscode/
