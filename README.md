@@ -36,10 +36,10 @@ It includes model training, backend deployment via Docker + Lambda, and a basic 
 ##  Demo / Screenshots
 
 ###  UI Form (HTML)
-![Form UI](screenshots/form-ui.png)
+![Form UI](screenshots/form-ui.jpg)
 
 ###  API Response (cURL test)
-![cURL Output](screenshots/curl-output.png)
+![cURL Output](screenshots/curl-output.jpg)
 
 ---
 
